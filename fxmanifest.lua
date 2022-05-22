@@ -12,8 +12,13 @@ ui_page     "client/html/index.html"
 
 files {
     'client/html/index.html',
-    'client/html/main.js',
-    'client/html/main.css',
+    'client/html/js/*.js',
+    'client/html/css/*.css',
+    'client/html/fonts/*.eot',
+    'client/html/fonts/*.svg',
+    'client/html/fonts/*.ttf',
+    'client/html/fonts/*.woff',
+    'client/html/fonts/*.woff2',
     'client/html/items/*.png',
     'client/html/items/*.jpg',
     'client/html/items/*.gif',
