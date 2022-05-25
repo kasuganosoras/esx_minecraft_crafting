@@ -7,7 +7,7 @@ fx_version  "cerulean"
 games       { 'gta5' }
 author      "Akkariin"
 description "ESX Minecraft inspired crafting system"
-version     "1.0.0"
+version     "1.0.3"
 ui_page     "client/html/index.html"
 
 files {
