@@ -232,6 +232,8 @@ function GetItem()
 end
 
 function CalculateCraft()
+    local matchItems = nil
+    local matchAmount = 0
     for _, craft in pairs(Crafts) do
         local allowCraft = Config.maxCraft
         local passSlots  = 0
@@ -261,14 +263,18 @@ function CalculateCraft()
         if passSlots == needSlots and wrongSlots == 0 then
             local allowAmount = math.floor(allowCraft * craft.output.amount)
             DebugPrint("match! item:", craft.output.item, "amount:", allowAmount)
-            return {
-                item   = craft.output.item,
-                amount = allowAmount,
-                label  = GetItemLabel(craft.output.item),
-            }
+            if #craft.input >= matchAmount then
+                matchAmount = #craft.input
+                matchItems = {
+                    item   = craft.output.item,
+                    input  = craft.input,
+                    amount = allowAmount,
+                    label  = GetItemLabel(craft.output.item),
+                }
+            end
         end
     end
-    return nil
+    return matchItems
 end
 
 function Int2Grid(int)
@@ -289,7 +295,10 @@ function ControlNui(action, data)
 end
 
 function GetItemLabel(item)
-    return _g.itemsList[item].label or item
+    if _g.itemsList[item] ~= nil and _g.itemsList[item].label ~= nil then
+        return _g.itemsList[item].label
+    end
+    return item
 end
 
 function DebugPrint(text)
