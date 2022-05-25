@@ -114,6 +114,8 @@ function CanPlayerCarryItem(xPlayer, name, amount)
 end
 
 function CalculateCraft(craftTable)
+    local matchItems = nil
+    local matchAmount = 0
     for _, craft in pairs(Crafts) do
         local allowCraft = Config.maxCraft
         local passSlots  = 0
@@ -139,14 +141,17 @@ function CalculateCraft(craftTable)
         if passSlots == needSlots then
             local allowAmount = math.floor(allowCraft * craft.output.amount)
             DebugPrint("match! item:", craft.output.item, "amount:", allowAmount)
-            return {
-                item   = craft.output.item,
-                amount = allowAmount,
-                craft  = craft.input,
-            }
+            if #craft.input >= matchAmount then
+                matchAmount = #craft.input
+                matchItems = {
+                    item   = craft.output.item,
+                    amount = allowAmount,
+                    craft  = craft.input,
+                }
+            end
         end
     end
-    return nil
+    return matchItems
 end
 
 function Int2Grid(int)
